@@ -8,8 +8,8 @@ export const CONTINUE_HREF = 'https://icon.iconsai.ai/icon'
 const HOLD = 14000
 
 export const SCENES: CanopyScene[] = [
-  { bg: '#f6dcc4', hero: 'A criança aprende na sua língua', mockup: 'prompt', promptText: '¿Cómo se dice "amigo" en guaraní?', hold: HOLD },
-  { bg: '#f9efde', hero: 'Curiosidade vira aula',            mockup: 'prompt', promptText: 'Por que a chuva cai?', hold: HOLD },
+  { bg: '#f6dcc4', hero: 'História, lição e curiosidade na língua da criança', mockup: 'prompt', promptText: '¿Cómo se dice "amigo" en guaraní?', hold: HOLD },
+  { bg: '#f9efde', hero: 'Onde a escola não chega',            mockup: 'prompt', promptText: 'Por que a chuva cai?', hold: HOLD },
   { bg: '#1a1108', caption: 'TRI-LÍNGUE · TTS · KARAOKÊ · ABNT', mockup: 'dialog', browserUrl: 'nanduti.iconsai.ai/conversa', promptText: 'Conta uma história sobre o jaguar', hold: HOLD },
   { bg: '#f0d8b8', mockup: 'gallery', browserUrl: 'nanduti.iconsai.ai/historias', hold: HOLD },
   { bg: '#f5e2c4', mockup: 'deck-export', browserUrl: 'nanduti.iconsai.ai/painel-pai', hold: HOLD },
