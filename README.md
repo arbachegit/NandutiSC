@@ -1,4 +1,4 @@
-# iconsaiNandutiShowCase
+# nanduti
 
 Página showcase do **Icons.ai · Ñanduti** — agente educacional infanto-juvenil em guaraní, português e espanhol.
 
@@ -18,8 +18,8 @@ npm run dev
 ## Deploy
 
 1. `npm run build`
-2. `rsync .next/standalone/ .next/static/ public/ root@<droplet>:/opt/iconsai-nanduti-showcase/app/ --delete`
-3. systemd unit + Caddy `icon.iconsai.ai/nanduti/*` → `127.0.0.1:3105/nanduti/*`
+2. `rsync .next/standalone/ .next/static/ public/ root@<droplet>:/opt/nanduti/app/ --delete`
+3. systemd unit `nanduti.service` + Caddy `icon.iconsai.ai/nanduti/*` → `127.0.0.1:3105/nanduti/*`
 
 ## Cenas (5)
 
@@ -29,4 +29,4 @@ npm run dev
 4. Browser gallery — biblioteca de histórias
 5. Deck + painel para pais
 
-CanopyIntro é compartilhado entre 6 ShowCases.
+CanopyIntro é compartilhado entre 6 showcases.
