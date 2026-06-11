@@ -3,7 +3,7 @@
 Página showcase do **Icons.ai · Ñanduti** — agente educacional infanto-juvenil em guaraní, português e espanhol.
 
 - **Stack:** Next.js 15 + React 19 + TypeScript strict
-- **basePath:** `/nanduti` (rota final `icon.iconsai.ai/nanduti`)
+- **basePath:** `/nanduti` (rota final `iconsai.ai/nanduti`)
 - **Porta dev:** `3105`
 - **Accent:** `#f97316` (laranja)
 
@@ -19,7 +19,7 @@ npm run dev
 
 1. `npm run build`
 2. `rsync .next/standalone/ .next/static/ public/ root@<droplet>:/opt/nanduti/app/ --delete`
-3. systemd unit `nanduti.service` + Caddy `icon.iconsai.ai/nanduti/*` → `127.0.0.1:3105/nanduti/*`
+3. systemd unit `nanduti.service` + Caddy `iconsai.ai/nanduti/*` → `127.0.0.1:3105/nanduti/*`
 
 ## Cenas (5)
 

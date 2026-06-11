@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Nanduti",
   description:
     "Agente educacional infanto-juvenil — guarani, portugues e espanhol.",
-  metadataBase: new URL("https://icon.iconsai.ai"),
+  metadataBase: new URL("https://iconsai.ai"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
