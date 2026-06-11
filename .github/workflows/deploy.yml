@@ -1,0 +1,98 @@
+# .github/workflows/deploy.yml
+# Deploy automatico: git push origin main -> build -> rsync -> systemctl restart -> verify.
+# Padrao canonico IconsAI (skill /deploy §4.1).
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_NAME: nanduti
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PATH: /opt/nanduti/app
+      DEPLOY_URL: https://iconsai.ai/nanduti/
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify standalone output
+        run: |
+          [ -d .next/standalone ] || { echo "FAIL: .next/standalone missing"; exit 1; }
+          echo "BUILD_ID=$(cat .next/BUILD_ID)"
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Add host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Assemble standalone
+        run: |
+          cp -r .next/static .next/standalone/.next/static
+          [ -d public ] && cp -r public .next/standalone/public
+
+      - name: Rsync standalone (--delete kills orphan chunks)
+        run: |
+          ssh "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p $DEPLOY_PATH"
+          rsync -avz --delete \
+            .next/standalone/ \
+            "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/" \
+            --exclude='.env.local' --exclude='.env.production'
+
+      - name: Restart service
+        run: |
+          ssh "$DEPLOY_USER@$DEPLOY_HOST" "systemctl restart $APP_NAME && sleep 4"
+          STATUS=$(ssh "$DEPLOY_USER@$DEPLOY_HOST" "systemctl is-active $APP_NAME")
+          [ "$STATUS" = "active" ] || { echo "FAIL: service $APP_NAME is $STATUS"; exit 1; }
+          echo "Service $APP_NAME is active"
+
+      - name: Post-deploy verify (anti-deploy-fantasma)
+        run: |
+          echo "Verifying $DEPLOY_URL ..."
+          HTML=$(curl -fsS -m 15 "$DEPLOY_URL") || { echo "FAIL: $DEPLOY_URL unreachable"; exit 1; }
+          echo "HTML 200 OK"
+
+          FAIL=0
+          while read -r p; do
+            [ -z "$p" ] && continue
+            CODE=$(curl -sI -m 10 "https://iconsai.ai${p}" -o /dev/null -w '%{http_code}')
+            if [ "$CODE" != "200" ]; then
+              echo "FAIL: chunk $p -> $CODE (deploy-fantasma)"
+              FAIL=1
+            fi
+          done < <(echo "$HTML" | grep -oE '/nanduti/_next/static/[^"]+\.(js|css)' | sort -u)
+
+          [ "$FAIL" = "0" ] || exit 1
+          echo "All chunks serve 200 - deploy verified"
+
+      - name: Notify success
+        if: success()
+        run: |
+          echo "Deploy $APP_NAME OK at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "URL: $DEPLOY_URL"
+          echo "BUILD_ID: $(cat .next/BUILD_ID)"
