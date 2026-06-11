@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # audit-css.sh — gate estatico de CODIGO (bloqueia build se falhar)
-# Adapted from infraTPU for nanduti (no AudioControl, no PDF, no maps).
+# Adapted from infraTPU for nanduti.
 set -uo pipefail
 CSS="app/globals.css"
 FAIL=0
@@ -9,16 +9,19 @@ fail(){ echo "FAIL [$1]: $2"; FAIL=$((FAIL+1)); }
 # Helper: flatten CSS into one-line-per-rule for multi-line grep.
 FLAT=$(awk '{gsub(/\n/," ")} 1' RS='}' "$CSS" | sed 's/  */ /g')
 
+# fgrep: check FLAT for pattern; uses here-string to avoid SIGPIPE with pipefail.
+fhas(){ grep -qE "$1" <<< "$FLAT" 2>/dev/null; }
+
 # === GLOBALS.CSS ===
 
 # F1: .slide-stage align-items
-echo "$FLAT" | grep -qE '\.slide-stage\b[^}]*align-items:\s*center' 2>/dev/null \
+fhas '\.slide-stage\b[^}]*align-items:\s*center' \
   && fail F1 ".slide-stage tem align-items:center (deve ser stretch)"
-echo "$FLAT" | grep -qE '\.slide-stage\b[^}]*align-items:\s*stretch' 2>/dev/null \
+fhas '\.slide-stage\b[^}]*align-items:\s*stretch' \
   || fail F1 ".slide-stage sem align-items:stretch"
 
 # F2: .slide-content align-items
-echo "$FLAT" | grep -qE '\.slide-content\b[^}]*align-items:\s*center' 2>/dev/null \
+fhas '\.slide-content\b[^}]*align-items:\s*center' \
   && fail F2 ".slide-content tem align-items:center (deve ser stretch)"
 
 # F3: classe .slide-fit (obsoleta)
@@ -26,43 +29,43 @@ grep -qE '\.slide-fit\b' "$CSS" 2>/dev/null \
   && fail F3 "classe .slide-fit encontrada (usar .slide-content)"
 
 # F4: max-width em containers de slide
-echo "$FLAT" | grep -qE '\.(slide-content|slide-fit)\b[^}]*max-width' 2>/dev/null \
+fhas '\.(slide-content|slide-fit)\b[^}]*max-width' \
   && fail F4 "max-width em container de slide"
-echo "$FLAT" | grep -qE '\.(slide-content|slide-fit)\b[^}]*width:\s*min\(' 2>/dev/null \
+fhas '\.(slide-content|slide-fit)\b[^}]*width:\s*min\(' \
   && fail F4 "width:min() em container de slide"
 
 # F8: .slide-content height:100%
-echo "$FLAT" | grep -qE '\.slide-content\b[^}]*height:\s*100%' 2>/dev/null \
+fhas '\.slide-content\b[^}]*height:\s*100%' \
   || fail F8 ".slide-content sem height:100%"
 
 # F9: .slide-content align-items:stretch
-echo "$FLAT" | grep -qE '\.slide-content\b[^}]*align-items:\s*stretch' 2>/dev/null \
+fhas '\.slide-content\b[^}]*align-items:\s*stretch' \
   || fail F9 ".slide-content sem align-items:stretch"
 
 # F13: .slide-band justify/align center
-echo "$FLAT" | grep -qE '\.slide-band\b[^}]*justify-content:\s*center' 2>/dev/null \
+fhas '\.slide-band\b[^}]*justify-content:\s*center' \
   && fail F13 ".slide-band tem justify-content:center"
-echo "$FLAT" | grep -qE '\.slide-band\b[^}]*align-items:\s*center' 2>/dev/null \
+fhas '\.slide-band\b[^}]*align-items:\s*center' \
   && fail F13 ".slide-band tem align-items:center"
 
 # F14: .slide-stage height:100% (deve ser flex:1)
-echo "$FLAT" | grep -qE '\.slide-stage\b[^}]*height:\s*100%' 2>/dev/null \
+fhas '\.slide-stage\b[^}]*height:\s*100%' \
   && fail F14 ".slide-stage tem height:100% (deve ser flex:1; min-height:0)"
 
 # F15: max() no padding de .slide-band (deve ser clamp())
-echo "$FLAT" | grep -qE '\.slide-band\b[^}]*padding-top:\s*max\(' 2>/dev/null \
+fhas '\.slide-band\b[^}]*padding-top:\s*max\(' \
   && fail F15 ".slide-band usa max() (deve ser clamp())"
-echo "$FLAT" | grep -qE '\.slide-band\b[^}]*padding-bottom:\s*max\(' 2>/dev/null \
+fhas '\.slide-band\b[^}]*padding-bottom:\s*max\(' \
   && fail F15 ".slide-band usa max() (deve ser clamp())"
 
 # F16: setas > 44px
-echo "$FLAT" | grep -qE '\.slide-nav__btn\b[^}]*width:\s*(4[5-9]|[5-9][0-9]|[1-9][0-9]{2,})px' 2>/dev/null \
+fhas '\.slide-nav__btn\b[^}]*width:\s*(4[5-9]|[5-9][0-9]|[1-9][0-9]{2,})px' \
   && fail F16 ".slide-nav__btn width > 44px"
 
 # F22: faixas opacas (var(--bg) token — §3.2/§3.3, nunca cor hardcoded)
-echo "$FLAT" | grep -qE 'body::before[^}]*background:\s*var\(--bg\)' 2>/dev/null \
+fhas 'body::before[^}]*background:\s*var\(--bg\)' \
   || fail F22 "body::before sem background:var(--bg) (faixas opacas — §3.2)"
-echo "$FLAT" | grep -qE 'body::after[^}]*background:\s*var\(--bg\)' 2>/dev/null \
+fhas 'body::after[^}]*background:\s*var\(--bg\)' \
   || fail F22 "body::after sem background:var(--bg) (faixas opacas — §3.2)"
 
 # === TSX (scope: components/ + app/) ===
