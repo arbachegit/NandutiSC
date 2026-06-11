@@ -20,7 +20,7 @@ const libreBaskerville = Libre_Baskerville({
 export const metadata: Metadata = {
   title: "Nanduti",
   description:
-    "Agente educacional infanto-juvenil — guarani, portugues e espanhol.",
+    "Portal ciudadano IA-first del Paraguay — 9 mini-apps, 28 herramientas, 5 idiomas.",
   metadataBase: new URL("https://iconsai.ai"),
 };
 

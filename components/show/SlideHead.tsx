@@ -5,7 +5,7 @@
 export default function SlideHead() {
   return (
     <header className="slide-head">
-      <span className="slide-head__kicker">Educacao Infanto-Juvenil</span>
+      <span className="slide-head__kicker">Portal Ciudadano Paraguayo</span>
       <span className="slide-head__name">Nanduti</span>
     </header>
   );

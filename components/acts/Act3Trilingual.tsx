@@ -1,62 +1,37 @@
 import { Shell } from "@/components/_shared";
-import { BrowserChrome } from "./Act1Hero";
+import { MiniAppIcon, MINI_APPS } from "./_act-shared";
 
-export default function Act3Trilingual() {
+export default function Act3Catalog() {
   return (
-    <Shell label="Tri-lingue TTS Karaoke ABNT">
-      <div className="ndt-browser">
-        <BrowserChrome url="nanduti.iconsai.ai/conversa" />
-        <div className="ndt-split">
-          <div className="ndt-split-dark" />
-          <div className="ndt-split-light">
-            <div className="ndt-grid-bg" />
-          </div>
+    <Shell label="Nueve micro-aplicaciones del Estado">
+      <div className="ndt-vert">
+        <div className="ndt-vert-top">
+          <span className="ndt-eyebrow">Nueve micro-aplicaciones</span>
+          <h2 className="ndt-h2">Cada servicio del Estado, una conversacion.</h2>
+          <p className="ndt-lead">
+            Cada mini-app encapsula un dominio. La IA orquesta tools sin que el ciudadano sienta la frontera.
+          </p>
         </div>
-        <div className="ndt-dialog">
-          <div className="ndt-dialog-tag">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-              <rect x="3" y="6" width="18" height="13" rx="2" />
-              <path d="M3 10h18" />
-            </svg>
-            nanduti
-            <span className="ndt-dialog-tag-x">x</span>
+
+        <div className="ndt-vert-body">
+          <div className="ndt-catalog">
+            {MINI_APPS.map((app, i) => (
+              <div key={app.id} className="ndt-catalog-row">
+                <span className="ndt-catalog-n">{(i + 1).toString().padStart(2, "0")}</span>
+                <span
+                  className="ndt-catalog-icon"
+                  style={{ background: `${app.color}22`, color: app.color }}
+                >
+                  <MiniAppIcon app={app.id} width={16} height={16} />
+                </span>
+                <div className="ndt-catalog-c">
+                  <span className="ndt-catalog-name">{app.name}</span>
+                  <span className="ndt-catalog-tag">{app.tag}</span>
+                </div>
+                <span className="ndt-catalog-arr">&rarr;</span>
+              </div>
+            ))}
           </div>
-          <div className="ndt-prompt-text">Conta uma historia sobre o jaguar</div>
-          <div className="ndt-prompt-actions">
-            <div className="ndt-prompt-tools">
-              {/* Grid icon (replaces emoji) */}
-              <span className="ndt-tool" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
-              </span>
-              {/* Paperclip icon (replaces emoji) */}
-              <span className="ndt-tool" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="M21 12.5L12 21.5C9.5 24 5.5 24 3 21.5C0.5 19 0.5 15 3 12.5L12 3.5C13.6 2 16.4 2 18 3.5C19.6 5 19.6 7.8 18 9.4L9 18.5" />
-                </svg>
-              </span>
-              {/* Edit icon (replaces emoji) */}
-              <span className="ndt-tool" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                </svg>
-              </span>
-              <span className="ndt-tool ndt-tool-import">Import</span>
-            </div>
-            <button type="button" className="ndt-send" aria-label="Send">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
-                <polygon points="4 4 22 12 4 20 8 12" />
-              </svg>
-              Send
-            </button>
-          </div>
-        </div>
-        <div className="ndt-caption" style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", color: "rgba(255,255,255,.6)" }}>
-          TRI-LINGUE · TTS · KARAOKE · ABNT
         </div>
       </div>
     </Shell>

@@ -9,14 +9,14 @@ import SlideFoot from "@/components/show/SlideFoot";
 import SlideFrame from "@/components/show/SlideFrame";
 
 import Act1Hero from "@/components/acts/Act1Hero";
-import Act2Reach from "@/components/acts/Act2Reach";
-import Act3Trilingual from "@/components/acts/Act3Trilingual";
-import Act4Stories from "@/components/acts/Act4Stories";
+import Act2Dialog from "@/components/acts/Act2Reach";
+import Act3Catalog from "@/components/acts/Act3Trilingual";
+import Act4Stack from "@/components/acts/Act4Stories";
 import Act5Thanks from "@/components/acts/Act5Thanks";
 
 import { exitToHub, HUB } from "@/lib/exitToHub";
 
-const SLIDES = [Act1Hero, Act2Reach, Act3Trilingual, Act4Stories, Act5Thanks];
+const SLIDES = [Act1Hero, Act2Dialog, Act3Catalog, Act4Stack, Act5Thanks];
 
 export default function NandutiShowcase() {
   return (
@@ -28,9 +28,11 @@ export default function NandutiShowcase() {
 
       {/* Dock simplified: exit only (no audio/PDF/i18n in this pass) */}
       <div className="audio-dock">
-        <a className="exit-btn" href={HUB} onClick={exitToHub}>
+        <a className="exit-btn" href={HUB} onClick={exitToHub} aria-label="Sair para o hub">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
           <span>Sair</span>
         </a>
