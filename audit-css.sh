@@ -59,11 +59,11 @@ echo "$FLAT" | grep -qE '\.slide-band\b[^}]*padding-bottom:\s*max\(' 2>/dev/null
 echo "$FLAT" | grep -qE '\.slide-nav__btn\b[^}]*width:\s*(4[5-9]|[5-9][0-9]|[1-9][0-9]{2,})px' 2>/dev/null \
   && fail F16 ".slide-nav__btn width > 44px"
 
-# F22: faixas opacas
-echo "$FLAT" | grep -qE 'body::before[^}]*background:\s*#06080d' 2>/dev/null \
-  || fail F22 "body::before sem background:#06080d (faixas opacas)"
-echo "$FLAT" | grep -qE 'body::after[^}]*background:\s*#06080d' 2>/dev/null \
-  || fail F22 "body::after sem background:#06080d (faixas opacas)"
+# F22: faixas opacas (var(--bg) token — §3.2/§3.3, nunca cor hardcoded)
+echo "$FLAT" | grep -qE 'body::before[^}]*background:\s*var\(--bg\)' 2>/dev/null \
+  || fail F22 "body::before sem background:var(--bg) (faixas opacas — §3.2)"
+echo "$FLAT" | grep -qE 'body::after[^}]*background:\s*var\(--bg\)' 2>/dev/null \
+  || fail F22 "body::after sem background:var(--bg) (faixas opacas — §3.2)"
 
 # === TSX (scope: components/ + app/) ===
 

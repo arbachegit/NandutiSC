@@ -5,7 +5,7 @@
   "scripts": {
     "predev": "lsof -ti :3105 | xargs kill -9 2>/dev/null || true",
     "dev": "next dev -p 3105",
-    "prebuild": "bash audit-css.sh",
+    "prebuild": "bash audit-css.sh && bash valida-skill.sh",
     "build": "next build",
     "start": "node .next/standalone/server.js",
     "start:dev": "next start -p 3105",

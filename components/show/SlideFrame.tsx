@@ -37,17 +37,14 @@ export default function SlideFrame({
     const content = contentRef.current;
     if (!stage || !content) return;
     const cs = getComputedStyle(stage);
-    const padT = parseFloat(cs.paddingTop) || 0;
-    const padB = parseFloat(cs.paddingBottom) || 0;
-    const padL = parseFloat(cs.paddingLeft) || 0;
-    const padR = parseFloat(cs.paddingRight) || 0;
-    const availH = stage.clientHeight - padT - padB;
-    const availW = stage.clientWidth - padL - padR;
-    const naturalW = content.scrollWidth;
-    const naturalH = content.scrollHeight;
-    if (naturalW <= 0 || naturalH <= 0 || availW <= 0 || availH <= 0) return;
-    const fitScale = Math.min(availW / naturalW, availH / naturalH) * 0.98;
-    const next = Math.max(FLOOR, Math.min(UPCAP, fitScale));
+    const availW = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const availH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const natW = content.scrollWidth;
+    const natH = content.scrollHeight;
+    if (natW <= 0 || natH <= 0 || availW <= 0 || availH <= 0) return;
+    const scaleW = natW > availW ? availW / natW : 1;
+    const scaleH = natH > availH ? availH / natH : 1;
+    const next = Math.max(FLOOR, Math.min(UPCAP, Math.min(scaleW, scaleH)));
     if (Math.abs(next - scaleRef.current) > 0.004) {
       scaleRef.current = next;
       setScale(next);
