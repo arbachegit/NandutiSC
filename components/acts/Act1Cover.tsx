@@ -5,7 +5,7 @@ export default function Act1Cover() {
     <div className="ndt-cover">
       {/* Full-screen background lace seal */}
       <div className="ndt-cover-seal">
-        <LaceSeal size={900} rays={20} rings={6} stroke="#22d3ee" opacity={0.14} spinSec={360} />
+        <LaceSeal size={1200} rays={32} rings={10} stroke="#22d3ee" opacity={0.16} spinSec={420} />
       </div>
 
       {/* Content overlaid on top */}
