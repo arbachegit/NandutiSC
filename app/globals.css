@@ -181,7 +181,7 @@ button:disabled,button[disabled],[aria-disabled="true"]{cursor:not-allowed;}
 .ndt-stats-badge{font-family:var(--font-mono);font-size:clamp(.6rem,1vw,.72rem);letter-spacing:.1em;color:rgba(245,243,238,.5);}
 
 /* Chat mockup */
-.ndt-chat{border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(12,16,24,.8);backdrop-filter:blur(12px);overflow:hidden;display:flex;flex-direction:column;width:100%;max-width:520px;}
+.ndt-chat{border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(12,16,24,.8);backdrop-filter:blur(12px);overflow:hidden;display:flex;flex-direction:column;width:100%;max-width:520px;max-height:min(440px,65vh);}
 .ndt-chat-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.08);}
 .ndt-chat-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);}
 .ndt-chat-title{flex:1;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;color:var(--gray);margin-left:8px;}
