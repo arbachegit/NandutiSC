@@ -16,19 +16,21 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 
-const LOCALES = ["pt-br", "pt-pt", "en", "gn"];
+const LOCALES = ["es", "gn", "pt-br", "pt-pt", "en"];
 const MODEL = "gpt-4o-mini-tts";
 const VOICE = process.env.TTS_VOICE || "coral";
 
 const INSTRUCTIONS = {
+  es:
+    "Lea en espanol rioplatense paraguayo, ritmo natural de presentacion ejecutiva. Siglas (BCP, USDC, W3C, IPS) deletreadas naturalmente. Numeros en espanol (4 millones 350 mil). Tono: confiado y directo, sin ser frio. Pronunciacion paraguaya natural.",
+  gn:
+    "Leia em guarani paraguaio (avane'e), ritmo calmo e claro. Palavras guarani pronunciadas naturalmente com acentuacao nasal correta. Siglas (BCP, USDC, W3C) soletradas. Numeros em guarani quando possivel. Tom: proximo e respeitoso, como quem fala com a comunidade.",
   "pt-br":
     "Leia em portugues brasileiro, ritmo natural de apresentacao executiva. Siglas (BCP, USDC, W3C, IPS) soletradas naturalmente. Numeros em portugues (4 milhoes e 350 mil). Tom: confiante e direto, sem ser frio.",
   "pt-pt":
     "Leia em portugues europeu, ritmo calmo e preciso. Siglas soletradas. Tom executivo, formal mas acessivel.",
   en:
     "Read in American English, executive presentation cadence. Acronyms naturally spoken. Numbers in English (4 million 350 thousand). Tone: confident, direct, not cold.",
-  gn:
-    "Leia em guarani paraguaio (avane'e), ritmo calmo e claro. Palavras guarani pronunciadas naturalmente com acentuacao nasal correta. Siglas (BCP, USDC, W3C) soletradas. Numeros em guarani quando possivel. Tom: proximo e respeitoso, como quem fala com a comunidade.",
 };
 
 async function generateSlide(locale, index, text) {

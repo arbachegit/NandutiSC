@@ -1,4 +1,28 @@
+"use client";
+
 import { Shell } from "@/components/_shared";
+import { useContentLocale, type ContentLocale } from "@/lib/useContentLocale";
+
+const T: Record<ContentLocale, {
+  eyebrow: string; auditTrail: string;
+  qrLabel: string; qrDesc: string;
+  emisor: string; emision: string; expiracion: string; formato: string;
+}> = {
+  es: {
+    eyebrow: "Documentos digitales W3C VC",
+    auditTrail: "Audit trail estoniano: quien vio, cuando y por que",
+    qrLabel: "Compartir via QR",
+    qrDesc: "Uso unico / TTL configurable / Verificable",
+    emisor: "Emisor", emision: "Emision", expiracion: "Expiracion", formato: "Formato",
+  },
+  gn: {
+    eyebrow: "Kuatia digital W3C VC",
+    auditTrail: "Audit trail estoniano: mava ohecha, araka\u2019e ha mba\u2019ere",
+    qrLabel: "Mombe\u2019u QR rupive",
+    qrDesc: "Peteĩ jey / TTL ojehaijey / Ojehechakuaa",
+    emisor: "Ome\u2019\u1ebdhare", emision: "\u00d1emboguapy", expiracion: "Opa", formato: "Formato",
+  },
+};
 
 const CREDENTIALS = [
   { name: "Cedula de Identidad Civil", issuer: "Policia Nacional", date: "2018-09-12", exp: "2028-09-12" },
@@ -10,12 +34,15 @@ const CREDENTIALS = [
 ];
 
 export default function Act10Docs() {
+  const cl = useContentLocale();
+  const t = T[cl];
+
   return (
     <Shell label="documentos">
       <div className="ndt-side">
         {/* Left: 6 W3C VCs */}
         <div className="ndt-side-l">
-          <span className="ndt-eyebrow">Documentos digitales W3C VC</span>
+          <span className="ndt-eyebrow">{t.eyebrow}</span>
           <div className="ndt-cred-list">
             {CREDENTIALS.map((c) => (
               <div key={c.name} className="ndt-cred-row">
@@ -36,7 +63,7 @@ export default function Act10Docs() {
             ))}
           </div>
           <span className="ndt-byline" style={{ marginTop: "8px" }}>
-            Audit trail estoniano: quem viu, quando y por que
+            {t.auditTrail}
           </span>
         </div>
 
@@ -54,8 +81,8 @@ export default function Act10Docs() {
                 <rect x="10" y="42" width="12" height="12" rx="1" fill="currentColor" opacity="0.3" />
               </svg>
             </div>
-            <span className="ndt-qr-label">Compartir via QR</span>
-            <span className="ndt-byline">Uso unico / TTL configurable / Verificable</span>
+            <span className="ndt-qr-label">{t.qrLabel}</span>
+            <span className="ndt-byline">{t.qrDesc}</span>
           </div>
           <div className="ndt-cred-detail">
             <div className="ndt-panel-h">
@@ -64,19 +91,19 @@ export default function Act10Docs() {
             </div>
             <div className="ndt-cred-detail-rows">
               <div className="ndt-cred-detail-row">
-                <span className="ndt-cred-detail-k">Issuer</span>
+                <span className="ndt-cred-detail-k">{t.emisor}</span>
                 <span className="ndt-cred-detail-v">Policia Nacional del Paraguay</span>
               </div>
               <div className="ndt-cred-detail-row">
-                <span className="ndt-cred-detail-k">Emision</span>
+                <span className="ndt-cred-detail-k">{t.emision}</span>
                 <span className="ndt-cred-detail-v">2018-09-12</span>
               </div>
               <div className="ndt-cred-detail-row">
-                <span className="ndt-cred-detail-k">Expiracion</span>
+                <span className="ndt-cred-detail-k">{t.expiracion}</span>
                 <span className="ndt-cred-detail-v">2028-09-12</span>
               </div>
               <div className="ndt-cred-detail-row">
-                <span className="ndt-cred-detail-k">Formato</span>
+                <span className="ndt-cred-detail-k">{t.formato}</span>
                 <span className="ndt-cred-detail-v">W3C Verifiable Credential v2</span>
               </div>
             </div>

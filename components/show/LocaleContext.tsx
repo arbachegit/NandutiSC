@@ -8,10 +8,11 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import { DEFAULT_LOCALE, type Locale } from "@/narration";
 
 const LANG_MAP: Record<Locale, string> = {
+  es: "es",
+  gn: "gn",
   "pt-br": "pt-BR",
   "pt-pt": "pt-PT",
   en: "en",
-  gn: "gn",
 };
 
 interface LocaleContextValue {

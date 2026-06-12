@@ -5,9 +5,10 @@
 import { scriptPtBr } from "./script.pt-br";
 import { scriptPtPt } from "./script.pt-pt";
 import { scriptEn } from "./script.en";
+import { scriptEs } from "./script.es";
 import { scriptGn } from "./script.gn";
 
-export type Locale = "pt-br" | "pt-pt" | "en" | "gn";
+export type Locale = "pt-br" | "pt-pt" | "en" | "es" | "gn";
 
 export interface SlideNarration {
   id: string;
@@ -15,22 +16,24 @@ export interface SlideNarration {
 }
 
 /**
- * Locale selector. Order: BR / PT / EN / GN (default BR).
- * 4 locales: Portuguese BR, Portuguese PT, English, Guarani.
+ * Locale selector. Order: ES / GN / BR / PT / EN (default ES).
+ * 5 locales: Spanish, Guarani, Portuguese BR, Portuguese PT, English.
  */
 export const LOCALES: { code: Locale; label: string }[] = [
+  { code: "es", label: "ES" },
+  { code: "gn", label: "GN" },
   { code: "pt-br", label: "BR" },
   { code: "pt-pt", label: "PT" },
   { code: "en", label: "EN" },
-  { code: "gn", label: "GN" },
 ];
 
-/** Default locale is BR. */
-export const DEFAULT_LOCALE: Locale = "pt-br";
+/** Default locale is ES (product language). */
+export const DEFAULT_LOCALE: Locale = "es";
 
 export const NARRATION: Record<Locale, SlideNarration[]> = {
+  es: scriptEs,
+  gn: scriptGn,
   "pt-br": scriptPtBr,
   "pt-pt": scriptPtPt,
   en: scriptEn,
-  gn: scriptGn,
 };

@@ -330,16 +330,16 @@ export function MiniAppIcon({ app, ...rest }: { app: string } & SVGProps<SVGSVGE
 /* ─── Canonical mini-app data ─── */
 
 export const MINI_APPS = [
-  { id: "wallet",  name: "Billetera",      tag: "Saldo PYG + USDC, transferencias, QR Hub",          color: "#22c55e" },
-  { id: "gov",     name: "Tramites",        tag: "Tramites paraguay.gov.py \u00b7 DNIT RUC",          color: "#0038A8" },
-  { id: "health",  name: "Salud",           tag: "Triagem es/gn/jo \u00b7 USF \u00b7 vacunas familia", color: "#22d3ee" },
-  { id: "edu",     name: "Educacion",       tag: "Boletin \u00b7 matricula \u00b7 tutor IA bilingue",  color: "#f97316" },
-  { id: "crypto",  name: "Tarjeta USDC",    tag: "Mastercard USDC \u00b7 Bancard adq \u00b7 Circle",  color: "#a855f7" },
-  { id: "info",    name: "Informativos",    tag: "Feed del Estado \u00b7 resumen IA semanal",          color: "#38bdf8" },
-  { id: "alerts",  name: "Alertas",         tag: "SEN \u00b7 DINAC \u00b7 ANDE geo-alertas",           color: "#fbbf24" },
-  { id: "police",  name: "Denuncia",        tag: "Boton panico \u00b7 DEAM \u00b7 modo discreto",      color: "#ef4444" },
-  { id: "docs",    name: "Documentos",      tag: "W3C VC \u00b7 audit estoniano \u00b7 QR validacion", color: "#d97706" },
-] as const;
+  { id: "wallet",  name: { es: "Billetera", gn: "Viru ryru" },      tag: { es: "Saldo PYG + USDC, transferencias, QR Hub", gn: "Saldo PYG + USDC, mondaha, QR Hub" },                                 color: "#22c55e" },
+  { id: "gov",     name: { es: "Tramites", gn: "Tramite" },         tag: { es: "Tramites paraguay.gov.py \u00b7 DNIT RUC", gn: "Tramite paraguay.gov.py \u00b7 DNIT RUC" },                           color: "#0038A8" },
+  { id: "health",  name: { es: "Salud", gn: "Tesa\u0129" },        tag: { es: "Triaje es/gn/jo \u00b7 USF \u00b7 vacunas familia", gn: "Triaje es/gn/jo \u00b7 USF \u00b7 poha \u00f1emohenda" },    color: "#22d3ee" },
+  { id: "edu",     name: { es: "Educacion", gn: "Mbo'ehao" },      tag: { es: "Boletin \u00b7 matricula \u00b7 tutor IA bilingue", gn: "Bolet\u00edn \u00b7 matr\u00edcula \u00b7 tutor IA moko\u0129 \u00f1e'\u1ebd" }, color: "#f97316" },
+  { id: "crypto",  name: { es: "Tarjeta USDC", gn: "Tarjeta USDC" }, tag: { es: "Mastercard USDC \u00b7 Bancard adq \u00b7 Circle", gn: "Mastercard USDC \u00b7 Bancard \u00b7 Circle" },             color: "#a855f7" },
+  { id: "info",    name: { es: "Informativos", gn: "Marandu" },     tag: { es: "Feed del Estado \u00b7 resumen IA semanal", gn: "Estado marandu \u00b7 IA \u00f1emombyky" },                           color: "#38bdf8" },
+  { id: "alerts",  name: { es: "Alertas", gn: "Marandu'i" },       tag: { es: "SEN \u00b7 DINAC \u00b7 ANDE geo-alertas", gn: "SEN \u00b7 DINAC \u00b7 ANDE geo-marandu" },                           color: "#fbbf24" },
+  { id: "police",  name: { es: "Denuncia", gn: "\u00d1emombe'u" }, tag: { es: "Boton panico \u00b7 DEAM \u00b7 modo discreto", gn: "Voto\u0303 apa\u00f1u\u00e3i \u00b7 DEAM \u00b7 modo ka\u00f1y" }, color: "#ef4444" },
+  { id: "docs",    name: { es: "Documentos", gn: "Kuatia" },       tag: { es: "W3C VC \u00b7 audit estoniano \u00b7 QR validacion", gn: "W3C VC \u00b7 audit estoniano \u00b7 QR \u00f1emoa\u00f1ete" }, color: "#d97706" },
+];
 
 /* ─── Chat chrome wrapper ─── */
 

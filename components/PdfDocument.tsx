@@ -10,6 +10,16 @@ import { NARRATION, type Locale } from "@/narration";
 import { SLIDE_PLANS } from "@/narration/slidePlan";
 
 const COVER: Record<Locale, { title: string; subtitle: string; desc: string }> = {
+  es: {
+    title: "Nanduti",
+    subtitle: "Portal Ciudadano Paraguayo",
+    desc: "9 mini-apps, 28 herramientas, 5 idiomas. Super-app del ciudadano paraguayo impulsada por IA.",
+  },
+  gn: {
+    title: "Nanduti",
+    subtitle: "Portal Ciudadano Paraguayo",
+    desc: "9 mini-app, 28 tembiporu, 5 ne'e. Tetaguasu paraguaigua super-app IA omba'apo ukava.",
+  },
   "pt-br": {
     title: "Nanduti",
     subtitle: "Portal Ciudadano Paraguayo",
@@ -25,25 +35,22 @@ const COVER: Record<Locale, { title: string; subtitle: string; desc: string }> =
     subtitle: "Paraguayan Citizen Portal",
     desc: "9 mini-apps, 28 tools, 5 languages. AI-powered Paraguayan citizen super-app.",
   },
-  gn: {
-    title: "Nanduti",
-    subtitle: "Portal Ciudadano Paraguayo",
-    desc: "9 mini-app, 28 tembiporu, 5 ne'e. Tetaguasu paraguaigua super-app IA omba'apo ukava.",
-  },
 };
 
 const SECTION_LABEL: Record<Locale, string> = {
+  es: "Seccion",
+  gn: "Mba'e",
   "pt-br": "Secao",
   "pt-pt": "Seccao",
   en: "Section",
-  gn: "Mba'e",
 };
 
 const CLOSING: Record<Locale, string> = {
+  es: "Una infraestructura digital se mide por su respeto al ciudadano.",
+  gn: "Infraestructura digital ojekuaa ciudadano respetope.",
   "pt-br": "Uma infraestrutura digital se mede pelo seu respeito ao cidadao.",
   "pt-pt": "Uma infraestrutura digital mede-se pelo respeito ao cidadao.",
   en: "A digital infrastructure is measured by its respect for the citizen.",
-  gn: "Infraestructura digital ojekuaa ciudadano respetope.",
 };
 
 function LogoMark() {
