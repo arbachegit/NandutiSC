@@ -11,6 +11,7 @@ const LANG_MAP: Record<Locale, string> = {
   "pt-br": "pt-BR",
   "pt-pt": "pt-PT",
   en: "en",
+  gn: "gn",
 };
 
 interface LocaleContextValue {

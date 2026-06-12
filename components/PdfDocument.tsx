@@ -25,18 +25,25 @@ const COVER: Record<Locale, { title: string; subtitle: string; desc: string }> =
     subtitle: "Paraguayan Citizen Portal",
     desc: "9 mini-apps, 28 tools, 5 languages. AI-powered Paraguayan citizen super-app.",
   },
+  gn: {
+    title: "Nanduti",
+    subtitle: "Portal Ciudadano Paraguayo",
+    desc: "9 mini-app, 28 tembiporu, 5 ne'e. Tetaguasu paraguaigua super-app IA omba'apo ukava.",
+  },
 };
 
 const SECTION_LABEL: Record<Locale, string> = {
   "pt-br": "Secao",
   "pt-pt": "Seccao",
   en: "Section",
+  gn: "Mba'e",
 };
 
 const CLOSING: Record<Locale, string> = {
   "pt-br": "Uma infraestrutura digital se mede pelo seu respeito ao cidadao.",
   "pt-pt": "Uma infraestrutura digital mede-se pelo respeito ao cidadao.",
   en: "A digital infrastructure is measured by its respect for the citizen.",
+  gn: "Infraestructura digital ojekuaa ciudadano respetope.",
 };
 
 function LogoMark() {

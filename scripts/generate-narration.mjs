@@ -16,7 +16,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 
-const LOCALES = ["pt-br", "pt-pt", "en"];
+const LOCALES = ["pt-br", "pt-pt", "en", "gn"];
 const MODEL = "gpt-4o-mini-tts";
 const VOICE = process.env.TTS_VOICE || "coral";
 
@@ -27,6 +27,8 @@ const INSTRUCTIONS = {
     "Leia em portugues europeu, ritmo calmo e preciso. Siglas soletradas. Tom executivo, formal mas acessivel.",
   en:
     "Read in American English, executive presentation cadence. Acronyms naturally spoken. Numbers in English (4 million 350 thousand). Tone: confident, direct, not cold.",
+  gn:
+    "Leia em guarani paraguaio (avane'e), ritmo calmo e claro. Palavras guarani pronunciadas naturalmente com acentuacao nasal correta. Siglas (BCP, USDC, W3C) soletradas. Numeros em guarani quando possivel. Tom: proximo e respeitoso, como quem fala com a comunidade.",
 };
 
 async function generateSlide(locale, index, text) {
