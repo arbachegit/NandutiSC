@@ -410,6 +410,11 @@ button:disabled,button[disabled],[aria-disabled="true"]{cursor:not-allowed;}
 /* AI avatar in chat */
 .ndt-ai-avatar{flex-shrink:0;margin-top:2px;}
 
+/* Chat input bar (mockup) */
+.ndt-chat-input{display:flex;align-items:center;gap:8px;padding:10px 14px;margin-top:4px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:rgba(20,20,32,.5);}
+.ndt-chat-input-text{flex:1;font-size:clamp(12px,1.3vw,14px);color:var(--gray);font-style:italic;}
+.ndt-chat-input svg{color:var(--cyan);flex-shrink:0;opacity:.6;}
+
 /* Side-by-side layout helper */
 .ndt-side{display:flex;flex-direction:row;gap:clamp(20px,3vw,40px);width:100%;height:100%;align-items:center;}
 .ndt-side-l{flex:1;min-width:0;display:flex;flex-direction:column;gap:16px;}

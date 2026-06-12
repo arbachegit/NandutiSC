@@ -7,7 +7,14 @@ import { useContentLocale, type ContentLocale } from "@/lib/useContentLocale";
 const T: Record<ContentLocale, {
   eyebrow: string; h2a: string; h2b: string; h2c: string;
   s1: string; s2: string; s3: string; s4: string;
-  userMsg: string; aiMsg1: string; aiMsg2: string;
+  /* Turn 1: wallet */
+  u1: string; ai1a: string; ai1b: string;
+  /* Turn 2: health */
+  u2: string; ai2: string;
+  /* Turn 3: alerts */
+  u3: string; ai3: string;
+  /* Input placeholder */
+  inputPlaceholder: string;
 }> = {
   es: {
     eyebrow: "Dialogo / 1 prompt, 1 accion",
@@ -16,9 +23,14 @@ const T: Record<ContentLocale, {
     s2: "La IA identifica la intencion",
     s3: "La herramienta ejecuta (wallet, salud, tramite...)",
     s4: "La respuesta se humaniza en el idioma del ciudadano",
-    userMsg: "Cuanto tengo?",
-    aiMsg1: "Tu saldo: Gs. 4.350.000 + 247,83 USDC.",
-    aiMsg2: "Cotizacion BCP del dia: Gs. 6.159,41 por dolar.",
+    u1: "Cuanto tengo en mi billetera?",
+    ai1a: "Tu saldo: Gs. 4.350.000 + 247,83 USDC.",
+    ai1b: "Cotizacion BCP: Gs. 6.159,41/USD.",
+    u2: "Las vacunas de Sofia estan al dia?",
+    ai2: "Sofia (8a) tiene BCG, Pentavalente y SPR completas. Proxima: refuerzo DPT en agosto.",
+    u3: "Hay alguna alerta en mi zona?",
+    ai3: "SEN emitio alerta naranja de inundacion en Chaco occidental. Tu zona (Trinidad) no esta afectada.",
+    inputPlaceholder: "Escribi tu pregunta...",
   },
   gn: {
     eyebrow: "\u00d1omongeta / 1 porandu, 1 mba'apo",
@@ -27,9 +39,14 @@ const T: Record<ContentLocale, {
     s2: "IA oikuaa mba'e oipotava",
     s3: "Tembiporu omba'apo (viru ryru, tesa\u0129, tramite...)",
     s4: "\u00d1embohovai o\u00f1emopor\u00e3v\u1ebd tet\u00e3gua \u00f1e'\u1ebdme",
-    userMsg: "Mboy che rekove?",
-    aiMsg1: "Ne saldo: Gs. 4.350.000 + 247,83 USDC.",
-    aiMsg2: "BCP kotisasion ko arave: Gs. 6.159,41 pete\u0129 dolar.",
+    u1: "Mboy che rekove che viru ryrupe?",
+    ai1a: "Ne saldo: Gs. 4.350.000 + 247,83 USDC.",
+    ai1b: "BCP kotisasion: Gs. 6.159,41/USD.",
+    u2: "Sofia poha \u00f1emohenda oimepa oi\u0303poraiteva?",
+    ai2: "Sofia (8 ary) oguereko BCG, Pentavalente ha SPR opaite. Ouvaha: DPT jasypoapy.",
+    u3: "Oime pa marandu\u2019i che rendape?",
+    ai3: "SEN omombe\u2019u marandu naranja yguasu rehegua Chaco ypy k\u00e1rape. Ne renda (Trinidad) ndoikovei.",
+    inputPlaceholder: "Ehai ne porandu...",
   },
 };
 
@@ -70,24 +87,51 @@ export default function Act3Dialog() {
           </ol>
         </div>
 
-        {/* Right: Chat mockup */}
+        {/* Right: Multi-turn chat mockup */}
         <div className="ndt-side-r">
           <ChatChrome>
-            <div className="ndt-msg ndt-msg-user">{t.userMsg}</div>
+            {/* Turn 1: Wallet balance */}
+            <div className="ndt-msg ndt-msg-user">{t.u1}</div>
             <div className="ndt-tool-call">
               <span className="ndt-tool-call-fn">wallet.balance()</span>
-              <span className="ndt-tool-call-arrow">{"->"}</span>
-              <span className="ndt-tool-call-out">
-                {"{ pyg: 4350000, usdc: 247.83, rate: 6159.41 }"}
-              </span>
+              <span className="ndt-tool-call-arrow">{"\u2192"}</span>
+              <span className="ndt-tool-call-out">{"{ pyg: 4350000, usdc: 247.83 }"}</span>
             </div>
             <div className="ndt-msg ndt-msg-ai">
-              <LaceSeal size={22} rays={12} rings={3} stroke="#22d3ee" opacity={0.9} className="ndt-ai-avatar" />
-              <span>
-                {t.aiMsg1}
-                <br />
-                {t.aiMsg2}
-              </span>
+              <LaceSeal size={20} rays={12} rings={3} stroke="#22d3ee" opacity={0.9} className="ndt-ai-avatar" />
+              <span>{t.ai1a}<br />{t.ai1b}</span>
+            </div>
+
+            {/* Turn 2: Health / vaccination */}
+            <div className="ndt-msg ndt-msg-user">{t.u2}</div>
+            <div className="ndt-tool-call">
+              <span className="ndt-tool-call-fn">health.vacunas({'"Sofia"'})</span>
+              <span className="ndt-tool-call-arrow">{"\u2192"}</span>
+              <span className="ndt-tool-call-out">{"{ status: \"completas\", next: \"DPT ago\" }"}</span>
+            </div>
+            <div className="ndt-msg ndt-msg-ai">
+              <LaceSeal size={20} rays={12} rings={3} stroke="#22d3ee" opacity={0.9} className="ndt-ai-avatar" />
+              <span>{t.ai2}</span>
+            </div>
+
+            {/* Turn 3: Alerts */}
+            <div className="ndt-msg ndt-msg-user">{t.u3}</div>
+            <div className="ndt-tool-call">
+              <span className="ndt-tool-call-fn">alerts.active({'"Trinidad"'})</span>
+              <span className="ndt-tool-call-arrow">{"\u2192"}</span>
+              <span className="ndt-tool-call-out">{"{ alerts: 1, zona: \"no afectada\" }"}</span>
+            </div>
+            <div className="ndt-msg ndt-msg-ai">
+              <LaceSeal size={20} rays={12} rings={3} stroke="#22d3ee" opacity={0.9} className="ndt-ai-avatar" />
+              <span>{t.ai3}</span>
+            </div>
+
+            {/* Chat input bar */}
+            <div className="ndt-chat-input">
+              <span className="ndt-chat-input-text">{t.inputPlaceholder}</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
             </div>
           </ChatChrome>
         </div>
